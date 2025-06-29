@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Bites Restaurant</title>
+    <meta name="description" content="Experience extraordinary flavors at Delicious Bites - Modern dining with fresh ingredients">
+    <meta name="theme-color" content="#ff6b6b">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiRGVsaWNpb3VzIEJpdGVzIiwic2hvcnRfbmFtZSI6IkRlbGljaW91cyIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjZmZmZmZmIiwidGhlbWVfY29sb3IiOiIjZmY2YjZiIiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbCxcJTNjc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyclM2UlM2NyZWN0IHdpZHRoPScxOTInIGhlaWdodD0nMTkyJyBmaWxsPSclMjNmZjZiNmInLyUzZSUzYy9zdmclM2UiLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and CSS Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Light Mode Colors */
+            --primary-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --accent-color: #45b7d1;
+            --background-color: #ffffff;
+            --surface-color: #f8f9fa;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --text-accent: #ffffff;
+            --border-color: #e9ecef;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --shadow-heavy: rgba(0, 0, 0, 0.25);
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode Colors */
+            --primary-color: #ff7675;
+            --secondary-color: #55efc4;
+            --accent-color: #74b9ff;
+            --background-color: #0d1117;
+            --surface-color: #161b22;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --text-accent: #ffffff;
+            --border-color: #30363d;
+            --shadow-light: rgba(0, 0, 0, 0.3);
+            --shadow-medium: rgba(0, 0, 0, 0.4);
+            --shadow-heavy: rgba(0, 0, 0, 0.6);
+            --glass-bg: rgba(22, 27, 34, 0.95);
+            --glass-border: rgba(48, 54, 61, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Modern Header */
+        header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            background: var(--surface-color);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            width: 60px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 22px;
+            height: 22px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        [data-theme="dark"] .theme-toggle::before {
+            transform: translateX(28px);
+            background: var(--secondary-color);
+        }
+
+        .theme-toggle i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-toggle .fa-sun {
+            left: 8px;
+            color: #ffd700;
+            opacity: 1;
+        }
+
+        .theme-toggle .fa-moon {
+            right: 8px;
+            color: #74b9ff;
+            opacity: 0;
+        }
+
+        [data-theme="dark"] .theme-toggle .fa-sun {
+            opacity: 0;
+        }
+
+        [data-theme="dark"] .theme-toggle .fa-moon {
+            opacity: 1;
+        }
+
+        /* Cart Icon */
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background: var(--surface-color);
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        nav a:hover {
+            background: var(--surface-color);
+            color: var(--primary-color);
+        }
+
+        /* Modern Hero Section with 3D Elements */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--text-accent);
+            z-index: 2;
+            position: relative;
+            max-width: 800px;
+            padding: 2rem;
+            transform-style: preserve-3d;
+            animation: heroFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-10px) rotateX(2deg); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, rgba(255, 255, 255, 0.8));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            animation: textGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+            100% { text-shadow: 0 0 40px rgba(255, 255, 255, 0.8); }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: var(--text-accent);
+            color: var(--primary-color);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            transform-style: preserve-3d;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px) rotateX(5deg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 107, 107, 0.3);
+        }
+
+        /* 3D Floating Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float3D 8s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float3D {
+            0%, 100% { 
+                transform: translateY(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); 
+            }
+            25% { 
+                transform: translateY(-20px) rotateX(15deg) rotateY(45deg) rotateZ(15deg); 
+            }
+            50% { 
+                transform: translateY(-10px) rotateX(-10deg) rotateY(90deg) rotateZ(-10deg); 
+            }
+            75% { 
+                transform: translateY(-30px) rotateX(20deg) rotateY(135deg) rotateZ(20deg); 
+            }
+        }
+
+        /* Modern Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Glass Cards with 3D Effects */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px) rotateX(2deg);
+            box-shadow: 0 20px 40px var(--shadow-medium), 0 0 20px rgba(255, 107, 107, 0.1);
+        }
+
+        /* Menu Filtering */
+        .menu-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--border-color);
+            background: var(--surface-color);
+            color: var(--text-primary);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Menu Items with Pricing */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .menu-item {
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: rotateY(5deg) rotateX(5deg);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .menu-item-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            color: white;
+            padding: 2rem 1.5rem 1.5rem;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .menu-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin: 0.5rem 0;
+        }
+
+        .menu-item-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--border-color);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-info h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-price {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--border-color);
+            background: var(--surface-color);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .cart-total {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--border-color);
+            text-align: center;
+        }
+
+        .cart-total h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            background: var(--surface-color);
+            padding: 5rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .review-form {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .rating-input {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .star {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #ffd700;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: var(--background-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-medium);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .review-stars {
+            color: #ffd700;
+        }
+
+        /* Live Chat */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px var(--shadow-medium);
+            transition: all 0.3s ease;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: var(--background-color);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow-heavy);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-window.open {
+            display: flex;
+        }
+
+        .chat-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 15px;
+            word-wrap: break-word;
+        }
+
+        .chat-message.user {
+            background: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-message.bot {
+            background: var(--surface-color);
+            color: var(--text-primary);
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .chat-input input {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            padding: 0.8rem 1rem;
+            margin-right: 0.5rem;
+        }
+
+        .chat-input button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        /* Booking System */
+        .booking-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1002;
+        }
+
+        .booking-modal.open {
+            display: flex;
+        }
+
+        .booking-content {
+            background: var(--background-color);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .booking-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .time-slot {
+            padding: 0.8rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .time-slot:hover,
+        .time-slot.selected {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .time-slot.unavailable {
+            background: var(--surface-color);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial {
+            text-align: center;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial:hover {
+            transform: rotateY(5deg);
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+            animation: avatarBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes avatarBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Forms */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        input, textarea, button, select {
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--surface-color);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+            transform: translateY(-2px);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--shadow-medium);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--surface-color);
+            color: var(--text-secondary);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Modern Header -->
+    <header>
+        <nav>
+            <div class="logo">Delicious Bites</div>
+            <div class="nav-controls">
+                <!-- Dark Mode Toggle -->
+                <div class="theme-toggle" id="themeToggle" data-theme="light">
+                    <i class="fa fa-sun"></i>
+                    <i class="fa fa-moon"></i>
+                </div>
+                <!-- Cart Icon -->
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Modern Hero Section with 3D Elements -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Welcome to Delicious Bites</h1>
+            <p>Experience the best culinary delights made with fresh ingredients.</p>
+            <a href="#menu" class="cta-button">Explore Our Menu</a>
+        </div>
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Us</h2>
+        <p>At Delicious Bites, we offer a unique dining experience with a menu that blends traditional and modern flavors. Our chefs use only the freshest ingredients to create dishes that are not only delicious but also visually stunning.</p>
+        <p>Join us for a meal and discover why we are the go-to restaurant for food lovers.</p>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <h2>Our Menu</h2>
+        <div class="menu-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="main">Main</button>
+            <button class="filter-btn" data-filter="veg">Veg</button>
+            <button class="filter-btn" data-filter="burger">Burger</button>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item glass-card" data-category="main">
+                <img src="https://images.unsplash.com/photo-1516685018646-5499d0a7d42f?auto=format&fit=crop&w=400&q=80" alt="Grilled Chicken">
+                <div class="menu-item-content">
+                    <h3>Grilled Chicken</h3>
+                    <div class="menu-item-price">₹350</div>
+                    <div class="menu-item-actions">
+                        <button class="btn btn-primary add-to-cart" data-name="Grilled Chicken" data-price="350">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item glass-card" data-category="veg">
+                <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80" alt="Veggie Pasta">
+                <div class="menu-item-content">
+                    <h3>Veggie Pasta</h3>
+                    <div class="menu-item-price">₹280</div>
+                    <div class="menu-item-actions">
+                        <button class="btn btn-primary add-to-cart" data-name="Veggie Pasta" data-price="280">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item glass-card" data-category="burger">
+                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=400&q=80" alt="Classic Burger">
+                <div class="menu-item-content">
+                    <h3>Classic Burger</h3>
+                    <div class="menu-item-price">₹220</div>
+                    <div class="menu-item-actions">
+                        <button class="btn btn-primary add-to-cart" data-name="Classic Burger" data-price="220">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more menu items as needed -->
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Order</h3>
+            <button class="btn btn-secondary" id="closeCart">Close</button>
+        </div>
+        <div id="cartItems"></div>
+        <div class="cart-total">
+            <h3>Total: ₹<span id="cartTotal">0</span></h3>
+            <button class="btn btn-primary" id="checkoutBtn">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <section id="reviews">
+        <h2>Customer Reviews</h2>
+        <div class="reviews-grid">
+            <!-- Review Card -->
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar">A</div>
+                    <div class="review-info">
+                        <h4>John Doe</h4>
+                        <div class="review-stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-text">
+                    "The food was absolutely wonderful, from preparation to presentation, very pleasing. We especially loved the unique flavor combinations."
+                </div>
+            </div>
+            <!-- Add more review cards as needed -->
+        </div>
+
+        <!-- Review Form -->
+        <div class="review-form">
+            <h3>Leave a Review</h3>
+            <div class="rating-input">
+                <i class="fa fa-star star" data-value="1"></i>
+                <i class="fa fa-star star" data-value="2"></i>
+                <i class="fa fa-star star" data-value="3"></i>
+                <i class="fa fa-star star" data-value="4"></i>
+                <i class="fa fa-star star" data-value="5"></i>
+            </div>
+            <textarea placeholder="Write your review here..." rows="4"></textarea>
+            <button class="btn btn-primary">Submit Review</button>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form action="#">
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Your Phone" required>
+                </div>
+                <div class="form-group full-width">
+                    <textarea placeholder="Your Message" rows="4" required></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking">
+        <h2>Book a Table</h2>
+        <button class="btn btn-primary" id="openBooking">Reserve Now</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Delicious Bites. All rights reserved.</p>
+        <p>Follow us on:
+            <a href="#" class="social-icon"><i class="fa fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fa fa-instagram"></i></a>
+        </p>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="booking-modal" id="bookingModal">
+        <div class="booking-content">
+            <h3>Book a Table</h3>
+            <div class="booking-slots" id="bookingSlots">
+                <!-- Time slots will be generated by JavaScript -->
+            </div>
+            <div class="form-group full-width">
+                <button class="btn btn-primary" id="confirmBooking">Confirm Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-toggle" id="chatToggle"><i class="fa fa-comments"></i></button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">Live Chat <span style="float:right;cursor:pointer;" id="closeChat">&times;</span></div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Type your message...">
+                <button id="sendChat"><i class="fa fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Menu Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+                menuItems.forEach(item => {
+                    if(filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        // Cart/Ordering System
+        let cart = [];
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCount = document.getElementById('cartCount');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const closeCart = document.getElementById('closeCart');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        function updateCart() {
+            cartItems.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, idx) => {
+                total += item.price * item.qty;
+                cartItems.innerHTML += `<div class='cart-item'><span>${item.name} x${item.qty}</span> <span>₹${item.price * item.qty}</span> <button onclick='removeCartItem(${idx})' class='btn btn-secondary'>Remove</button></div>`;
+            });
+            cartTotal.textContent = total;
+            cartCount.textContent = cart.reduce((a, b) => a + b.qty, 0);
+        }
+        window.removeCartItem = function(idx) {
+            cart.splice(idx, 1);
+            updateCart();
+        }
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const name = btn.getAttribute('data-name');
+                const price = parseInt(btn.getAttribute('data-price'));
+                const found = cart.find(i => i.name === name);
+                if(found) found.qty++;
+                else cart.push({ name, price, qty: 1 });
+                updateCart();
+                cartSidebar.classList.add('open');
+            });
+        });
+        cartIcon.addEventListener('click', () => cartSidebar.classList.add('open'));
+        closeCart.addEventListener('click', () => cartSidebar.classList.remove('open'));
+        checkoutBtn.addEventListener('click', () => {
+            alert('Thank you for your order! (Demo only)');
+            cart = [];
+            updateCart();
+            cartSidebar.classList.remove('open');
+        });
+        updateCart();
+
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if(currentTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'light');
+                themeToggle.setAttribute('data-theme', 'light');
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.setAttribute('data-theme', 'dark');
+            }
+        });
+
+        // Booking System
+        const openBooking = document.getElementById('openBooking');
+        const bookingModal = document.getElementById('bookingModal');
+        const bookingSlots = document.getElementById('bookingSlots');
+        openBooking.addEventListener('click', () => {
+            bookingModal.classList.add('open');
+            generateTimeSlots();
+        });
+        function generateTimeSlots() {
+            bookingSlots.innerHTML = '';
+            for(let i = 9; i <= 21; i++) {
+                const slot = document.createElement('div');
+                slot.classList.add('time-slot');
+                slot.textContent = `${i}:00`;
+                slot.addEventListener('click', () => {
+                    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                    slot.classList.add('selected');
+                });
+                bookingSlots.appendChild(slot);
+            }
+        }
+        document.getElementById('confirmBooking').addEventListener('click', () => {
+            const selectedSlot = document.querySelector('.time-slot.selected');
+            if(!selectedSlot) {
+                alert('Please select a time slot.');
+                return;
+            }
+            const time = selectedSlot.textContent;
+            alert(`Table booked for ${time}!`);
+            bookingModal.classList.remove('open');
+        });
+
+        // Live Chat Widget
+        const chatWidget = document.createElement('div');
+        chatWidget.className = 'chat-widget';
+        chatWidget.innerHTML = `
+            <button class="chat-toggle" id="chatToggle"><i class="fa fa-comments"></i></button>
+            <div class="chat-window" id="chatWindow">
+                <div class="chat-header">Live Chat <span style="float:right;cursor:pointer;" id="closeChat">&times;</span></div>
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="chat-input">
+                    <input type="text" id="chatInput" placeholder="Type your message...">
+                    <button id="sendChat"><i class="fa fa-paper-plane"></i></button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(chatWidget);
+        const chatToggle = document.getElementById('chatToggle');
+        const chatWindow = document.getElementById('chatWindow');
+        const closeChat = document.getElementById('closeChat');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendChat = document.getElementById('sendChat');
+        chatToggle.addEventListener('click', () => chatWindow.classList.toggle('open'));
+        closeChat.addEventListener('click', () => chatWindow.classList.remove('open'));
+        function appendChatMessage(msg, sender) {
+            const div = document.createElement('div');
+            div.className = 'chat-message ' + sender;
+            div.textContent = msg;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        sendChat.addEventListener('click', sendUserMessage);
+        chatInput.addEventListener('keydown', e => { if(e.key === 'Enter') sendUserMessage(); });
+        function sendUserMessage() {
+            const msg = chatInput.value.trim();
+            if(!msg) return;
+            appendChatMessage(msg, 'user');
+            chatInput.value = '';
+            setTimeout(() => appendChatMessage('Thank you for your message! (Demo bot)', 'bot'), 800);
+        }
+
+        // Review Form Logic
+        const stars = document.querySelectorAll('.star');
+        let currentRating = 0;
+        stars.forEach(star => {
+            star.addEventListener('mouseover', () => {
+                const val = parseInt(star.getAttribute('data-value'));
+                stars.forEach(s => s.classList.toggle('active', parseInt(s.getAttribute('data-value')) <= val));
+            });
+            star.addEventListener('mouseout', () => {
+                stars.forEach(s => s.classList.toggle('active', parseInt(s.getAttribute('data-value')) <= currentRating));
+            });
+            star.addEventListener('click', () => {
+                currentRating = parseInt(star.getAttribute('data-value'));
+                stars.forEach(s => s.classList.toggle('active', parseInt(s.getAttribute('data-value')) <= currentRating));
+            });
+        });
+        document.querySelector('.review-form button').addEventListener('click', function(e) {
+            e.preventDefault();
+            const text = document.querySelector('.review-form textarea').value.trim();
+            if(currentRating === 0 || !text) {
+                alert('Please provide a rating and review.');
+                return;
+            }
+            const reviewsGrid = document.querySelector('.reviews-grid');
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            card.innerHTML = `<div class='review-header'><div class='review-avatar'>U</div><div class='review-info'><h4>You</h4><div class='review-stars'>${'<i class="fa fa-star"></i>'.repeat(currentRating)}</div></div></div><div class='review-text'>"${text}"</div>`;
+            reviewsGrid.prepend(card);
+            document.querySelector('.review-form textarea').value = '';
+            currentRating = 0;
+            stars.forEach(s => s.classList.remove('active'));
+            alert('Thank you for your review!');
+        });
+
+        // Register Service Worker for PWA
+        if('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').then(reg => {
+                    // Service worker registered
+                }).catch(err => {
+                    // Registration failed
+                });
+            });
+        }
+    </script>
+</body>
+</html>
