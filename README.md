@@ -15,11 +15,12 @@ A visually stunning, interactive, and modern restaurant website with advanced fe
 - **Social Media Links**: Quick access to restaurant’s social profiles.
 
 ## Demo
-
-![Delicious Bites Screenshot] ![Screenshot 2025-06-29 182405](https://github.com/user-attachments/assets/8a3e78a2-e6af-451f-8719-4766dc32a295)
-
-![Screenshot 2025-06-29 182421](https://github.com/user-attachments/assets/7a7025ed-e025-458e-8860-f0e8d4fcd758)
-![Screenshot 2025-06-29 182444](https://github.com/user-attachments/assets/60afa24f-578a-4b32-9aa6-ef238071502d)
+![Screenshot 2025-07-02 084324](https://github.com/user-attachments/assets/43f67250-1dde-4195-913e-d2eff9117bce)
+![Screenshot 2025-07-02 084341](https://github.com/user-attachments/assets/3afd5c91-071f-478e-8373-d117de4a4c67)
+![Screenshot 2025-07-02 084402](https://github.com/user-attachments/assets/4b55ed31-bc83-449d-88e4-1e53b6f8d3c6)
+![Screenshot 2025-07-02 084420](https://github.com/user-attachments/assets/b0f3b67b-f30a-4163-8595-5b562c148f42)
+![Screenshot 2025-07-02 084437](https://github.com/user-attachments/assets/02de80b1-20a7-47ec-aeaf-4262d47230ae)
+![Screenshot 2025-07-02 084447](https://github.com/user-attachments/assets/10cb0de3-6fac-4717-9265-94604fc9c29f)
 
 ## Getting Started
 
